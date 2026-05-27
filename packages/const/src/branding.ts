@@ -4,10 +4,12 @@
 
 export const LOBE_CHAT_CLOUD = 'LobeHub Cloud';
 
-export const BRANDING_NAME = 'LobeHub';
-export const BRANDING_LOGO_URL = '';
+export const BRANDING_NAME = 'YICHUAN KE';
+export const BRANDING_LOGO_URL = '/images/yichuan-ke-logo-512.webp';
+export const BRANDING_ICON_192_URL = '/icons/yichuan-ke-icon-192.png';
+export const BRANDING_ICON_512_URL = '/icons/yichuan-ke-icon-512.png';
 
-export const ORG_NAME = 'LobeHub';
+export const ORG_NAME = 'YICHUAN KE';
 
 export const BRANDING_URL = {
   help: undefined,

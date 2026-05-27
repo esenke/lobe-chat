@@ -1,4 +1,9 @@
-import { BRANDING_LOGO_URL, BRANDING_NAME, ORG_NAME } from '@/const/branding';
+import {
+  BRANDING_ICON_192_URL,
+  BRANDING_ICON_512_URL,
+  BRANDING_NAME,
+  ORG_NAME,
+} from '@/const/branding';
 import { DEFAULT_LANG } from '@/const/locale';
 import { OFFICIAL_URL, OG_URL } from '@/const/url';
 import { isCustomBranding, isCustomORG } from '@/const/version';
@@ -22,7 +27,14 @@ export const generateMetadata = async (props: DynamicLayoutProps) => {
     },
     description: t('chat.description', { appName: BRANDING_NAME }),
     icons: isCustomBranding
-      ? BRANDING_LOGO_URL
+      ? {
+          apple: [{ sizes: '192x192', type: 'image/png', url: BRANDING_ICON_192_URL }],
+          icon: [
+            { sizes: '192x192', type: 'image/png', url: BRANDING_ICON_192_URL },
+            { sizes: '512x512', type: 'image/png', url: BRANDING_ICON_512_URL },
+          ],
+          shortcut: BRANDING_ICON_192_URL,
+        }
       : {
           apple: '/apple-touch-icon.png?v=1',
           icon: isDev ? '/favicon-dev.ico' : '/favicon.ico?v=1',

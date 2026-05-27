@@ -24,6 +24,9 @@
   },
   "license": "MIT",
   "author": "LobeHub <i@lobehub.com>",
+  "engines": {
+    "node": "22.x"
+  },
   "sideEffects": false,
   "workspaces": [
     "packages/*",

@@ -1,6 +1,5 @@
 import qs from 'query-string';
 
-import { BRANDING_LOGO_URL } from '@/const/branding';
 import { getCanonicalUrl } from '@/server/utils/url';
 
 const MAX_AGE = 31_536_000;
@@ -19,6 +18,14 @@ interface ScreenshotItem {
   url: string;
   version?: number;
 }
+
+const imageMimeType = (url: string) => {
+  if (url.endsWith('.webp')) return 'image/webp';
+  if (url.endsWith('.jpg') || url.endsWith('.jpeg')) return 'image/jpeg';
+  if (url.endsWith('.svg')) return 'image/svg+xml';
+
+  return 'image/png';
+};
 
 export class Manifest {
   public generate({
@@ -77,14 +84,14 @@ export class Manifest {
     cache_busting_mode: 'query',
     immutable: 'true',
     max_age: MAX_AGE,
-    src: qs.stringifyUrl({ query: { v: version }, url: BRANDING_LOGO_URL || url }),
+    src: qs.stringifyUrl({ query: { v: version }, url }),
   });
 
   private _getIcon = ({ url, version, sizes, purpose }: IconItem) => ({
     ...this._getImage(url, version),
     purpose,
     sizes,
-    type: 'image/png',
+    type: imageMimeType(url),
   });
 
   private _getScreenshot = ({ form_factor, url, version, sizes }: ScreenshotItem) => ({

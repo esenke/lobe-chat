@@ -13,6 +13,7 @@ const FailedPage = memo(() => {
   const { t } = useTranslation('oauth');
   const [reason] = useQueryState('reason');
   const [errorMessage] = useQueryState<string>('errorMessage', parseAsString);
+  const reasonText = reason ?? 'unknown';
 
   return (
     <Center height="100vh">
@@ -37,7 +38,7 @@ const FailedPage = memo(() => {
           subTitle={
             <Flexbox gap={8}>
               {t('error.desc', {
-                reason: t(`error.reason.${reason}` as any, { defaultValue: reason }),
+                reason: t(`error.reason.${reasonText}` as any, { defaultValue: reasonText }),
               })}
 
               {!!errorMessage && <Highlighter language={'log'}>{errorMessage}</Highlighter>}

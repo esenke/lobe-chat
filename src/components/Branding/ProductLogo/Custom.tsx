@@ -19,11 +19,14 @@ const useStyles = createStyles(({ css }) => {
 const CustomTextLogo = memo<FlexboxProps & { size: number }>(({ size, style, ...rest }) => {
   return (
     <Flexbox
+      align={'center'}
       height={size}
       style={{
-        fontSize: size / 1.5,
-        fontWeight: 'bolder',
+        fontSize: Math.max(12, Math.round(size / 2.05)),
+        fontWeight: 800,
+        lineHeight: `${size}px`,
         userSelect: 'none',
+        whiteSpace: 'nowrap',
         ...style,
       }}
       {...rest}
@@ -34,12 +37,18 @@ const CustomTextLogo = memo<FlexboxProps & { size: number }>(({ size, style, ...
 });
 
 const CustomImageLogo = memo<Omit<ImageProps, 'alt' | 'src'> & { size: number }>(
-  ({ size, ...rest }) => {
+  ({ size, style, ...rest }) => {
     return (
       <Image
         alt={BRANDING_NAME}
         height={size}
         src={BRANDING_LOGO_URL}
+        style={{
+          borderRadius: Math.max(6, Math.round(size / 5)),
+          boxShadow: '0 0 0 1px rgba(0, 0, 0, 0.08)',
+          objectFit: 'cover',
+          ...style,
+        }}
         unoptimized={true}
         width={size}
         {...rest}
@@ -74,17 +83,24 @@ const CustomLogo = memo<LobeChatProps>(({ extra, size = 32, className, style, ty
   switch (type) {
     case '3d':
     case 'flat': {
-      logoComponent = <CustomImageLogo size={size} style={style} {...rest} />;
+      logoComponent = (
+        <CustomImageLogo className={className} size={size} style={style} {...rest} />
+      );
       break;
     }
     case 'mono': {
       logoComponent = (
-        <CustomImageLogo size={size} style={{ filter: 'grayscale(100%)', ...style }} {...rest} />
+        <CustomImageLogo
+          className={className}
+          size={size}
+          style={{ filter: 'grayscale(100%)', ...style }}
+          {...rest}
+        />
       );
       break;
     }
     case 'text': {
-      logoComponent = <CustomTextLogo size={size} style={style} {...rest} />;
+      logoComponent = <CustomTextLogo className={className} size={size} style={style} {...rest} />;
       break;
     }
     case 'combine': {
@@ -97,7 +113,14 @@ const CustomLogo = memo<LobeChatProps>(({ extra, size = 32, className, style, ty
 
       if (!extra)
         logoComponent = (
-          <Flexbox align={'center'} flex={'none'} horizontal {...rest}>
+          <Flexbox
+            align={'center'}
+            className={className}
+            flex={'none'}
+            horizontal
+            style={style}
+            {...rest}
+          >
             {logoComponent}
           </Flexbox>
         );
@@ -105,7 +128,9 @@ const CustomLogo = memo<LobeChatProps>(({ extra, size = 32, className, style, ty
       break;
     }
     default: {
-      logoComponent = <CustomImageLogo size={size} style={style} {...rest} />;
+      logoComponent = (
+        <CustomImageLogo className={className} size={size} style={style} {...rest} />
+      );
       break;
     }
   }

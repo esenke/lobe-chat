@@ -1,4 +1,6 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "bun run build",
-  "installCommand": "npx bun@1.2.23 install"
+  "fluid": true,
+  "installCommand": "bunx bun@1.2.23 install"
 }
